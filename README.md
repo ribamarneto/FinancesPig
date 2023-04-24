@@ -1,5 +1,4 @@
 # Finances Pig
-
 Aplicativo para dispositivos móveis com o objetivo de ajudar estudantes a controlar seus gastos.
 
 
@@ -13,9 +12,11 @@ Aplicativo para dispositivos móveis com o objetivo de ajudar estudantes a contr
 ### Configurando o Android Studio
   - Criar um **Virtual Device**, de preferência usando o modelo **Pixel 6** com a versão 30 da API;
   - Abrir o **SDK Manager**, e na aba **SDK Platforms** instalar o **Android 10**. 
-  - Na aba **SDK Tools** verificare se os pacotes **Android SDK Platform-Tools** e **Android Emulator** estão instalados. Do contrário, realizar a instalação dos pacotes.
+  - Na aba **SDK Tools** verificar se os pacotes **Android SDK Platform-Tools** e **Android Emulator** estão instalados. Do contrário, realizar a instalação dos pacotes.
 	
-## Instalando as bilbiotecas do projeto
+## Instalando as dependências do projeto
+Após configurar o ambiente e baixar o projeto, usamos o comando abaixo para instalar todas as dependências do projeto.
+
 `npm install`
 
 ## Execução do projeto
