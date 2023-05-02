@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button, Text } from 'react-native';
+import { SocialIcon, Button } from '@rneui/themed'
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import Home from './Home';
 
 GoogleSignin.configure({
@@ -28,11 +28,21 @@ export default function Login() {
 
   if (!user) {
     return (
-      <View>
-          <Button
-            title="Google Sign-In"
-            onPress={() => onGoogleButtonPress().then(() => console.log('Signed in with Google!'))}
-          />
+      <View style={{ alignItems: 'center'}}>
+                <SocialIcon
+                    title={'Entrar com Google'}
+                    onPress={() => onGoogleButtonPress().then(() => console.log('Signed in with Google!'))}
+                    type='google'
+                    button={true}
+                    style={{ width: 200}}                    
+                />
+                <SocialIcon
+                    title={'Entrar com Facebook'}
+                    onPress={{}}
+                    type='facebook'
+                    button={true}
+                    style={{ width: 200}}                    
+                />
       </View>
       
     );
