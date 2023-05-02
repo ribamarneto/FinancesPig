@@ -8,14 +8,22 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:804973163973:android:c6f99b8fdec2c32bc707ac",
+        "mobilesdk_app_id": "1:804973163973:android:996e750b8035ab2fc707ac",
         "android_client_info": {
           "package_name": "com.financespig"
         }
       },
       "oauth_client": [
         {
-          "client_id": "804973163973-sl6bksk6p0c0ba6uduj4alq9rv4jcdhm.apps.googleusercontent.com",
+          "client_id": "804973163973-n4vg20mpeagji10hkdafg9rbnicp557e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.financespig",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "804973163973-o2fkl9cojfilghpjumfqb0k4bi99tgfp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -28,7 +36,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "804973163973-sl6bksk6p0c0ba6uduj4alq9rv4jcdhm.apps.googleusercontent.com",
+              "client_id": "804973163973-o2fkl9cojfilghpjumfqb0k4bi99tgfp.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
