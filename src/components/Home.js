@@ -7,9 +7,9 @@ import CurrencyInput from 'react-native-currency-input';
 
 export default function Home(props) {
 
-    const [receita, setReceita] = React.useState('0.00');
-    const [despesa, setDespesa] = React.useState('0.00');
-    const [saldoExibir, setSaldoExibir] = React.useState('0.00');
+    const [receita, setReceita] = React.useState('');
+    const [despesa, setDespesa] = React.useState('');
+    const [saldoExibir, setSaldoExibir] = React.useState(0);
 
     FireBase.createSaldoIfNotExist();
 
@@ -101,6 +101,7 @@ export default function Home(props) {
                 }
             </Text>
         </SafeAreaView>
+        
     );
 }
 

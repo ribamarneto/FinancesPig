@@ -4,6 +4,7 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import { View, Image } from 'react-native';
 import Home from './Home';
+import Bottom from './Bottom';
 
 GoogleSignin.configure({
   webClientId: '804973163973-o2fkl9cojfilghpjumfqb0k4bi99tgfp.apps.googleusercontent.com',
@@ -28,21 +29,20 @@ export default function Login() {
 
   if (!user) {
     return (
-      <View style={{ alignItems: 'center'}}>
-                <SocialIcon
-                    title={'Entrar com Google'}
-                    onPress={() => onGoogleButtonPress().then(() => console.log('Signed in with Google!'))}
-                    type='google'
-                    button={true}
-                    style={{ width: 200}}                    
-                />
-                <SocialIcon
-                    title={'Entrar com Facebook'}
-                    onPress={{}}
-                    type='facebook'
-                    button={true}
-                    style={{ width: 200}}                    
-                />
+      <View style={{ alignItems: 'center', paddingVertical: '50%'}}>
+        <SocialIcon
+            title={'Entrar com Google'}
+            onPress={() => onGoogleButtonPress().then(() => console.log('Signed in with Google!'))}
+            type='google'
+            button={true}
+            style={{ width: 200}}                    
+        />
+        <SocialIcon
+            title={'Entrar com Facebook'}
+            type='facebook'
+            button={true}
+            style={{ width: 200}}                    
+        />
       </View>
       
     );
@@ -70,6 +70,6 @@ export default function Login() {
   }
 
   return (
-      <Home/>
+      <Bottom/>
   );
 }

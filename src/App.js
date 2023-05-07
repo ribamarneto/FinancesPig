@@ -1,23 +1,27 @@
-import { View, Button, StyleSheet } from "react-native";
+
 import * as React from 'react';
-import { Text, Header } from '@rneui/themed';
-import Home from "./components/Home";
 import Login from "./components/Login";
-import auth from '@react-native-firebase/auth';
+import { Provider, MD3LightTheme, MD3DarkTheme } from 'react-native-paper';
+import { Header } from "@rneui/base";
+import { LogBox } from 'react-native';
+
+LogBox.ignoreLogs(['Possible Unhandled Promise Rejection']);
 
 export default function App() {
     // Set an initializing state whilst Firebase connects
 
+    const onMenuPress = () => {
+        console.log('Menu pressed');
+    }
+
     return (
-        <View>
+        <Provider >
             <Header
-                leftComponent={{ icon: 'home', color: '#fff' }}
                 centerComponent={{ text: 'Finances Pig', style: { color: '#fff', fontSize: 23, fontWeight: "bold"} }}
-                rightComponent={{ icon: 'menu', color: '#fff' }}
                 containerStyle={{ marginBottom: 50 }}
                 backgroundColor="#ff6347"
             />
-            <Login/>          
-        </View>
+            <Login/>
+        </Provider>
     );
 }
