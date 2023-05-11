@@ -16,7 +16,6 @@ const MyMenu = () => {
           paddingTop: 50,
           flexDirection: 'row',
           justifyContent: 'center',
-          backgroundColor: '#ff6347'
         }}>
         <Menu
           visible={visible}

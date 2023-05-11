@@ -3,13 +3,23 @@ import { BottomNavigation, Text, MD3LightTheme } from 'react-native-paper';
 import { Alert } from 'react-native';
 import Home from './Home';
 import auth from '@react-native-firebase/auth';
+import History from './History';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 const HomeRoute = () => <Home />;
 
-const RecentsRoute = () => <Text>Recents</Text>;
+const RecentsRoute = () => <History/>;
 
-const LogoutRoute = () => {
-  auth().signOut().then(() => console.log('User signed out!'))
+const LogoutRoute = async () => {
+  try {
+    await GoogleSignin.revokeAccess();
+    await GoogleSignin.signOut();
+    // Remova a linha abaixo se você não está usando um estado em um componente de classe
+    // this.setState({ user: null });
+    auth().signOut().then(() => console.log('User signed out!'));
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 

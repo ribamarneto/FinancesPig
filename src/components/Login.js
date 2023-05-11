@@ -8,7 +8,18 @@ import Bottom from './Bottom';
 
 GoogleSignin.configure({
   webClientId: '804973163973-o2fkl9cojfilghpjumfqb0k4bi99tgfp.apps.googleusercontent.com',
+  prompt: 'select_account',
 });
+
+const signInWithGoogle = async () => {
+  try {
+    await GoogleSignin.hasPlayServices();
+    const userInfo = await GoogleSignin.signIn();
+    // processar o login bem-sucedido
+  } catch (error) {
+    // lidar com o erro de login
+  }
+};
 
 export default function Login() {
   const [initializing, setInitializing] = React.useState(true);

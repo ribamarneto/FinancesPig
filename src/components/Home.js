@@ -11,6 +11,9 @@ export default function Home(props) {
     const [despesa, setDespesa] = React.useState('');
     const [saldoExibir, setSaldoExibir] = React.useState(0);
 
+    const [data_cadastro, setDataCadastro] = React.useState('');
+    const [tipo, setTipo] = React.useState('');
+
     FireBase.createSaldoIfNotExist();
 
     React.useEffect(() => {
@@ -25,6 +28,30 @@ export default function Home(props) {
 
     }, []);
 
+    const atualizarReceita = (valor) => {
+        let dataCadastro = new Date().toLocaleString();
+        database()
+            .ref('/historico')
+            .push({
+                data_cadastro: dataCadastro,
+                tipo: "receita",
+                valor: valor
+        })
+        .then(() => props.click());
+    }
+
+    const atualizarDespesa = (valor) => {
+        let dataCadastro = new Date().toLocaleString();
+        database()
+            .ref('/historico')
+            .push({
+                data_cadastro: dataCadastro,
+                tipo: "despesa",
+                valor: valor
+        })
+        .then(() => props.click());
+    }
+
 
     const atualizar = () => {
 
@@ -33,6 +60,12 @@ export default function Home(props) {
         console.log("Saldo: " + saldoExibir)
 
         const saldo = saldoExibir + receita - despesa;
+
+        if (parseFloat(receita) > 0)
+            atualizarReceita(parseFloat(receita));
+
+        if (parseFloat(despesa) > 0)
+            atualizarDespesa(parseFloat(despesa));
 
         setReceita(0);
         setDespesa(0);
@@ -52,7 +85,6 @@ export default function Home(props) {
                 const valor = Object.values(snapshot.val());
                 setSaldoExibir(parseFloat(valor));
             });
-
     };
 
     return (

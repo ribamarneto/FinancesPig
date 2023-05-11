@@ -8,12 +8,6 @@ import { LogBox } from 'react-native';
 LogBox.ignoreLogs(['Possible Unhandled Promise Rejection']);
 
 export default function App() {
-    // Set an initializing state whilst Firebase connects
-
-    const onMenuPress = () => {
-        console.log('Menu pressed');
-    }
-
     return (
         <Provider >
             <Header
