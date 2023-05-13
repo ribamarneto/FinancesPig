@@ -88,7 +88,7 @@ export default function Home(props) {
     };
 
     return (
-        <SafeAreaView style={{ alignItems: 'center' }}>
+        <SafeAreaView style={{ alignItems: 'center', paddingVertical: '25%' }}>
             <Text style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 22 }}>Receita</Text>
             <SafeAreaView style={{ display: 'flex', flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
                 <CurrencyInput
