@@ -2,6 +2,7 @@ import { View, Text } from "react-native";
 import * as React from 'react';
 import { Button, FAB, ListItem } from '@rneui/themed';
 import database from "@react-native-firebase/database";
+import PageTitle from "../Title";
 
 export default function History(props) {
 
@@ -20,29 +21,23 @@ export default function History(props) {
 
     return (
         <View style={{ display: 'flex', flex: 1 }} onLayout={carregarLista}>
-          <Text style={{ fontSize: 22, fontWeight: 'bold' }}>Historico</Text>
-          <View style={{ marginTop: 16, borderColor: '#cdcdcd', borderWidth: 0.5 }}>
+          <PageTitle value={'Histórico'}/>
+          {/* <Text style={{ fontSize: 22, fontWeight: 'bold', padding:'5%' ,backgroundColor: 'lightgrey', textAlign:'center', width:'100%' }}>Histórico</Text> */}
+          <View style={{ marginTop: 16, borderColor: '#cdcdcd', paddingLeft: '10%'  }}>
             {
               listaHistorico
                 .sort((a, b) => b.data_cadastro.localeCompare(a.data_cadastro))
                 .map(data =>
                   <ListItem key={data.id}>
                     <ListItem.Content>
-                      <ListItem.Title style={{ color: data.tipo === 'despesa' ? 'red' : 'green' }}>{data.valor}</ListItem.Title>
-                      <ListItem.Subtitle>{data.tipo.charAt(0).toUpperCase() + data.tipo.slice(1)}</ListItem.Subtitle>
-                      <ListItem.Subtitle>{data.data_cadastro}</ListItem.Subtitle>
+                      <ListItem.Title style={{ color: data.tipo === 'despesa' ? 'red' : 'green', fontWeight:'bold', fontSize:22 }}>{'R$ ' + data.valor}</ListItem.Title>
+                      <ListItem.Subtitle style={{fontWeight:'bold', color:'grey'}}>{data.tipo.charAt(0).toUpperCase() + data.tipo.slice(1)}</ListItem.Subtitle>
+                      <ListItem.Subtitle style={{color:'grey'}}>{data.data_cadastro}</ListItem.Subtitle>
                     </ListItem.Content>
                   </ListItem>
                 )
             }
           </View>
-          <FAB
-            visible={true}
-            title="+"
-            color="#1c9aa6"
-            placement="right"
-            onPress={() => { props.click() }}
-          />
         </View>
       );
       

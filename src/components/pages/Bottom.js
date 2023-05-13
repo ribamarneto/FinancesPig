@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { BottomNavigation, Button, Divider, Menu, Provider, View } from 'react-native-paper';
-import { Alert } from 'react-native';
+import React, { useState } from 'react';
+import { BottomNavigation } from 'react-native-paper';
 import Home from './Home';
-import auth from '@react-native-firebase/auth';
 import History from './History';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import UserAccountMenu from './UserAccountMenu';
 
 const HomeRoute = () => <Home />;
 

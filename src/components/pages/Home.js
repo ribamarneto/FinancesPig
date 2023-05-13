@@ -1,6 +1,6 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, TextInput, Text, View, TouchableOpacity } from 'react-native';
-import * as FireBase from '../firebase/firebaseUtils';
+import * as FireBase from '../../firebase/firebaseUtils';
 import database from '@react-native-firebase/database';
 import { Button } from '@rneui/base';
 import CurrencyInput from 'react-native-currency-input';
