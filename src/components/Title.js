@@ -11,7 +11,7 @@ const textStyle = StyleSheet.create({
         fontSize: 22, 
         fontWeight: 'bold',
         padding:'5%',
-        backgroundColor: 'lightgrey', 
+        backgroundColor: '#fceee3', 
         textAlign:'center', 
         width:'100%' 
     },
