@@ -4,15 +4,14 @@ import * as FireBase from '../../firebase/firebaseUtils';
 import database from '@react-native-firebase/database';
 import { Button } from '@rneui/base';
 import CurrencyInput from 'react-native-currency-input';
+import auth from '@react-native-firebase/auth';
+
 
 export default function Home(props) {
 
     const [receita, setReceita] = React.useState('');
     const [despesa, setDespesa] = React.useState('');
     const [saldoExibir, setSaldoExibir] = React.useState(0);
-
-    const [data_cadastro, setDataCadastro] = React.useState('');
-    const [tipo, setTipo] = React.useState('');
 
     FireBase.createSaldoIfNotExist();
 
@@ -29,28 +28,30 @@ export default function Home(props) {
     }, []);
 
     const atualizarReceita = (valor) => {
+        const userUid = auth().currentUser.uid;
         let dataCadastro = new Date().toLocaleString('pt-BR');
         database()
-            .ref('/historico')
-            .push({
-                data_cadastro: dataCadastro,
-                tipo: "receita",
-                valor: valor
-        })
-        .then(() => props.click());
-    }
-
-    const atualizarDespesa = (valor) => {
+          .ref(`/historico/${userUid}`)
+          .push({
+            data_cadastro: dataCadastro,
+            tipo: 'receita',
+            valor: valor,
+          })
+          .then(() => props.click());
+      };
+      
+      const atualizarDespesa = (valor) => {
+        const userUid = auth().currentUser.uid;
         let dataCadastro = new Date().toLocaleString('pt-BR');
         database()
-            .ref('/historico')
-            .push({
-                data_cadastro: dataCadastro,
-                tipo: "despesa",
-                valor: valor
-        })
-        .then(() => props.click());
-    }
+          .ref(`/historico/${userUid}`)
+          .push({
+            data_cadastro: dataCadastro,
+            tipo: 'despesa',
+            valor: valor,
+          })
+          .then(() => props.click());
+      };
 
 
     const atualizar = () => {
@@ -70,25 +71,36 @@ export default function Home(props) {
         setReceita(0);
         setDespesa(0);
 
+        const userUid = auth().currentUser.uid;
+
         database()
-            .ref('/saldo')
+            .ref(`/saldo/${userUid}`)
             .update({
                 saldo
             })
             .then(() => props.click());
 
         database()
-            .ref('/saldo')
+            .ref(`/saldo/${userUid}`)
             .once('value')
             .then(snapshot => {
                 console.log('saldo: ', snapshot.val());
                 const valor = Object.values(snapshot.val());
-                setSaldoExibir(parseFloat(valor));
             });
+
+        exibirSaldo();
     };
 
+    const exibirSaldo = async () => {
+        const saldo = await FireBase.calcularSaldo();
+        setSaldoExibir(saldo);
+        console.log('Exibir Saldo:', saldo);
+    };
+
+    exibirSaldo();
+
     return (
-        <SafeAreaView style={{ alignItems: 'center', paddingVertical: '25%' }}>
+        <SafeAreaView onLayout={this.SetState} style={{ alignItems: 'center', paddingVertical: '25%' }}>
             <Text style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 22 }}>Receita</Text>
             <SafeAreaView style={{ display: 'flex', flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
                 <CurrencyInput

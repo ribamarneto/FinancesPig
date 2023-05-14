@@ -3,13 +3,15 @@ import * as React from 'react';
 import { Button, FAB, ListItem } from '@rneui/themed';
 import database from "@react-native-firebase/database";
 import PageTitle from "../Title";
+import auth from '@react-native-firebase/auth';
 
 export default function History(props) {
   const [listaHistorico, setListaHistorico] = React.useState([]);
+  const userUid = auth().currentUser.uid;
 
   const fetchData = () => {
     database()
-      .ref('/historico')
+      .ref(`/historico/${userUid}`)
       .once('value')
       .then(snapshot => {
         const historico = Object.values(snapshot.val())
@@ -22,22 +24,17 @@ export default function History(props) {
     fetchData();
   }, []);
 
-  const handleFabClick = () => {
-    fetchData();
-  };
-  
-
   return (
-    <SafeAreaView onLayout={fetchData} style={{ flex: 1 }}>
-      <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
+    <SafeAreaView style={{ flex: 1, }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 80, }}>
         <PageTitle value={'Histórico'} />
-        <View style={{ marginTop: 16, borderColor: '#cdcdcd', paddingLeft: '10%' }}>
+        <View style={{ marginTop: 16}}>
           {
             listaHistorico
               .sort((a, b) => b.data_cadastro.localeCompare(a.data_cadastro))
               .map(data =>
-                <ListItem key={data.id}  >
-                  <ListItem.Content>
+                <ListItem key={data.id} style={{width:'110%', marginLeft:-16}} >
+                  <ListItem.Content style={{borderBottomWidth:0.5, paddingLeft:20}}>
                     <ListItem.Title style={{ color: data.tipo === 'despesa' ? 'crimson' : 'green', fontWeight: 'bold', fontSize: 22}}>
                       <Text style={{fontSize: 20, fontWeight:'bold'}}>{data.tipo === 'despesa' ? '- R$ ' : '+ R$ '}</Text>
                       { (data.valor ? data.valor.toString().replace('.', ',') : '')}
@@ -50,6 +47,13 @@ export default function History(props) {
           }
         </View>
       </ScrollView>
+      <FAB
+        visible={true}
+        onPress={fetchData}
+        placement="right"
+        icon={{ name: 'refresh', color: 'white' }}
+        color="green"
+      />
     </SafeAreaView>
   );
 }

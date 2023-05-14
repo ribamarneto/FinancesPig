@@ -13,9 +13,11 @@ const PoupancaRoute = () => <Poupanca/>
 
 const Bottom = () => {
   const [index, setIndex] = useState(0);
+  const [key, setKey] = useState('home'); // Estado para controlar a chave do componente
+
 
   const [routes] = useState([
-    { key: 'home',  focusedIcon: 'currency-usd' },
+    { key: 'home',  focusedIcon: 'home' },
     { key: 'metas', focusedIcon: 'stairs-up' },
     { key: 'poupanca', focusedIcon: 'piggy-bank' },
     { key: 'historico', focusedIcon: 'history' },
@@ -29,15 +31,22 @@ const Bottom = () => {
     historico: RecentsRoute,
   });
 
+  const handleIndexChange = (newIndex) => {
+    setIndex(newIndex);
+    const newKey = routes[newIndex].key;
+    setKey(newKey); // Atualiza a chave do componente
+  };
+
   return (
     <BottomNavigation
       navigationState={{ index, routes }}
-      onIndexChange={setIndex}
+      onIndexChange={handleIndexChange}
       renderScene={renderScene}
       barStyle={{ backgroundColor: '#ff6347' }}
-      activeColor='black'
-      inactiveColor='white'
+      activeColor="black"
+      inactiveColor="white"
       theme={{ colors: { background: 'white' } }}
+      key={key} // Define a chave do BottomNavigation para forçar a renderização do componente ao mudar de rota
     />
   );
 };
