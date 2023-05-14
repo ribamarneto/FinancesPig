@@ -29,7 +29,7 @@ export default function Home(props) {
     }, []);
 
     const atualizarReceita = (valor) => {
-        let dataCadastro = new Date().toLocaleString();
+        let dataCadastro = new Date().toLocaleString('pt-BR');
         database()
             .ref('/historico')
             .push({
@@ -41,7 +41,7 @@ export default function Home(props) {
     }
 
     const atualizarDespesa = (valor) => {
-        let dataCadastro = new Date().toLocaleString();
+        let dataCadastro = new Date().toLocaleString('pt-BR');
         database()
             .ref('/historico')
             .push({

@@ -9,7 +9,6 @@ const RecentsRoute = () => <History/>;
 
 const Bottom = () => {
   const [index, setIndex] = useState(0);
-  const [lastIndex, setLastIndex] = useState(0); // Adicionando o estado do último índice visitado
 
   const [routes] = useState([
     { key: 'home',  focusedIcon: 'currency-usd' },
