@@ -1,15 +1,4 @@
 {
   "name": "FinancesPig",
-  "displayName": "FinancesPig",
-  "extra": {
-    "eas": {
-      "projectId": "5052cf7f-0023-470e-9844-4b5fcc57293b"
-    },
-    "expo": {
-      "runtimeVersion": "1.0.0",
-      "updates": {
-        "url": "https://u.expo.dev/5052cf7f-0023-470e-9844-4b5fcc57293b?runtime-version=1.0.0&channel-name=production&platform=android"
-      }
-    }
-  }
+  "displayName": "FinancesPig"
 }
