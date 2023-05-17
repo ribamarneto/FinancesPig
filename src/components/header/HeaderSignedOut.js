@@ -6,7 +6,7 @@ export default function HeaderSignedOut()
     return(
         <Header
             centerComponent={{ text: 'Finances Pig', style: { color: '#fff', fontSize: 23, fontWeight: "bold" } }}
-            backgroundColor="#ff6347"
+            backgroundColor="darkorange"
         />
     );
 }

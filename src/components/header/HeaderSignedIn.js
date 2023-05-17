@@ -50,7 +50,7 @@ export default function HeaderSignedIn() {
         <View>  
             <Header
                 leftComponent={{ text: 'Finances Pig', style: { color: '#fff', fontSize: 23, fontWeight: "bold", paddingTop: 10, width: 200 } }}
-                backgroundColor="#ff6347"
+                backgroundColor="darkorange"
                 containerStyle={{paddingBottom: 20}}
                 rightComponent={
                     <View style={{ display: 'flex', flex: 1, flexDirection: 'column', flexWrap: 'wrap', position: 'relative', paddingLeft:30, columnGap: -8, paddingTop: 3 }}>

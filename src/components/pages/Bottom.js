@@ -42,7 +42,7 @@ const Bottom = () => {
       navigationState={{ index, routes }}
       onIndexChange={handleIndexChange}
       renderScene={renderScene}
-      barStyle={{ backgroundColor: '#ff6347' }}
+      barStyle={{ backgroundColor: 'darkorange' }}
       activeColor="black"
       inactiveColor="white"
       theme={{ colors: { background: 'white' } }}
