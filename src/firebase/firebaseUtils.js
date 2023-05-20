@@ -3,6 +3,7 @@ import auth from '@react-native-firebase/auth';
 import * as React from 'react'
 
 const user = auth().currentUser;
+
 let userUid = "";
 
 if (user) 

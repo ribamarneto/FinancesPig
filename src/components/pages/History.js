@@ -9,6 +9,8 @@ export default function History(props) {
   const [listaHistorico, setListaHistorico] = React.useState([]);
   const userUid = auth().currentUser.uid;
 
+  // Recupera os doados do histório no firebase, filtrando pelo código usuário
+  // e armazena na constante listaHistorico
   const fetchData = () => {
     database()
       .ref(`/historico/${userUid}`)
@@ -20,6 +22,7 @@ export default function History(props) {
       });
   };
 
+  //Chama a função fetchData quando o componente é montado 
   React.useEffect(() => {
     fetchData();
   }, []);
@@ -29,12 +32,14 @@ export default function History(props) {
       <ScrollView contentContainerStyle={{ paddingBottom: 80, }}>
         <PageTitle value={'Histórico'} />
         <View style={{ marginTop: 16}}>
-          {
+          { // Abaixo preenchemos o componente LisItem com os valores carregados na constante listaHistorico
             listaHistorico
+              // Usamos o sort para ordenar valores da data mais recente para a mais antiga usando 
               .sort((a, b) => b.data_cadastro.localeCompare(a.data_cadastro))
               .map(data =>
                 <ListItem key={data.id} style={{width:'110%', marginLeft:-16}} >
                   <ListItem.Content style={{borderBottomWidth:0.5, paddingLeft:20}}>
+                    {/* Na linha abaixo mudamos a cor do texto de acordo com o tipo do valor */}
                     <ListItem.Title style={{ color: data.tipo === 'despesa' ? 'crimson' : 'green', fontWeight: 'bold', fontSize: 22}}>
                       <Text style={{fontSize: 20, fontWeight:'bold'}}>{data.tipo === 'despesa' ? '- R$ ' : '+ R$ '}</Text>
                       { (data.valor ? data.valor.toString().replace('.', ',') : '')}

@@ -6,54 +6,43 @@ import { Button } from '@rneui/base';
 import CurrencyInput from 'react-native-currency-input';
 import auth from '@react-native-firebase/auth';
 
-
 export default function Home(props) {
 
     const [receita, setReceita] = React.useState('');
     const [despesa, setDespesa] = React.useState('');
     const [saldoExibir, setSaldoExibir] = React.useState(0);
 
-    FireBase.createSaldoIfNotExist();
-
-    React.useEffect(() => {
-        database()
-            .ref('/saldo')
-            .once('value')
-            .then(snapshot => {
-                console.log('saldo: ', snapshot.val());
-                const valor = Object.values(snapshot.val());
-                setSaldoExibir(parseFloat(valor));
-            });
-
-    }, []);
-
+    //Recebe o valor cadastrado para a Receita e insere um novo registro no banco, vinculado ao usuário logado
     const atualizarReceita = (valor) => {
         const userUid = auth().currentUser.uid;
         let dataCadastro = new Date().toLocaleString('pt-BR');
         database()
-          .ref(`/historico/${userUid}`)
-          .push({
-            data_cadastro: dataCadastro,
-            tipo: 'receita',
-            valor: valor,
-          })
-          .then(() => props.click());
-      };
-      
-      const atualizarDespesa = (valor) => {
+            .ref(`/historico/${userUid}`)
+            .push({
+                data_cadastro: dataCadastro,
+                tipo: 'receita',
+                valor: valor,
+            })
+            .then(() => props.click());
+    };
+
+    //Recebe o valor cadastrado para a Despesa e insere um novo registro no banco, vinculado ao usuário logado
+    const atualizarDespesa = (valor) => {
         const userUid = auth().currentUser.uid;
         let dataCadastro = new Date().toLocaleString('pt-BR');
         database()
-          .ref(`/historico/${userUid}`)
-          .push({
-            data_cadastro: dataCadastro,
-            tipo: 'despesa',
-            valor: valor,
-          })
-          .then(() => props.click());
-      };
+            .ref(`/historico/${userUid}`)
+            .push({
+                data_cadastro: dataCadastro,
+                tipo: 'despesa',
+                valor: valor,
+            })
+            .then(() => props.click());
+    };
 
 
+    
+    //Atualiza os valores de Saldo, Receita e Despesa
     const atualizar = () => {
 
         console.log("Receita: " + receita)
@@ -62,6 +51,7 @@ export default function Home(props) {
 
         const saldo = saldoExibir + receita - despesa;
 
+        //Chamas as funções que salvam os valores de receita e despesa, e em seguida zera os valores na tela
         if (parseFloat(receita) > 0)
             atualizarReceita(parseFloat(receita));
 
@@ -71,8 +61,10 @@ export default function Home(props) {
         setReceita(0);
         setDespesa(0);
 
+        //Pega o ID do usuário logado
         const userUid = auth().currentUser.uid;
 
+        //Atualiza o valor do saldo no firebase
         database()
             .ref(`/saldo/${userUid}`)
             .update({
@@ -80,6 +72,7 @@ export default function Home(props) {
             })
             .then(() => props.click());
 
+        //Retorna o valor do saldo atualizado
         database()
             .ref(`/saldo/${userUid}`)
             .once('value')
@@ -91,19 +84,26 @@ export default function Home(props) {
         exibirSaldo();
     };
 
+    
+    //Calcula o saldo a a ser exibido na tela à partir da soma dos valores do histórico
     const exibirSaldo = async () => {
         const saldo = await FireBase.calcularSaldo();
         setSaldoExibir(saldo);
         console.log('Exibir Saldo:', saldo);
     };
 
-    exibirSaldo();
+    React.useEffect(() => {
+        exibirSaldo();
+    });
+
+    // exibirSaldo();
 
     return (
-        <SafeAreaView onLayout={this.SetState} style={{ alignItems: 'center', paddingVertical: '25%' }}>
+        <SafeAreaView onLayout={exibirSaldo} style={{ alignItems: 'center', paddingVertical: '25%' }}>
             <Text style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 22 }}>Receita</Text>
             <SafeAreaView style={{ display: 'flex', flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
-                <CurrencyInput
+            {/* Input da receita */}
+                <CurrencyInput //Componente de input de valores monetários (react-native-currency-input)
                     style={styles.input}
                     value={receita}
                     onChangeValue={setReceita}
@@ -117,6 +117,7 @@ export default function Home(props) {
             </SafeAreaView>
             <Text style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 22, marginTop: 100 }}>Despesa</Text>
             <SafeAreaView style={{ display: 'flex', flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
+            {/* Input da despess */}
                 <CurrencyInput
                     style={styles.input}
                     value={despesa}
@@ -129,7 +130,7 @@ export default function Home(props) {
                     textAlign='center'
                 />
             </SafeAreaView>
-            <View style={{ marginTop: 120, paddingHorizontal: 60, width: 300}}>
+            <View style={{ marginTop: 120, paddingHorizontal: 60, width: 300 }}>
                 <Button
                     title={'Calcular'}
                     onPress={atualizar}
@@ -139,13 +140,12 @@ export default function Home(props) {
                 </Button>
             </View>
             <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 22, marginTop: 10 }}>
-                Saldo: 
+                Saldo:
                 {
                     saldoExibir != null ? ' R$ ' + parseFloat(saldoExibir).toFixed(2).toString().replace(".", ",") : ' R$ ' + '0,00'
                 }
             </Text>
         </SafeAreaView>
-        
     );
 }
 
