@@ -37,7 +37,8 @@ export default function History(props) {
               // Usamos o sort para ordenar valores da data mais recente para a mais antiga usando 
               .sort((a, b) => b.data_cadastro.localeCompare(a.data_cadastro))
               .map(data =>
-                <ListItem key={data.id} style={{width:'110%', marginLeft:-16}} >
+                <ListItem key={data.data_cadastro} style={{width:'110%', marginLeft:-16}} >
+                  {console.log(data)}
                   <ListItem.Content style={{borderBottomWidth:0.5, paddingLeft:20}}>
                     {/* Na linha abaixo mudamos a cor do texto de acordo com o tipo do valor */}
                     <ListItem.Title style={{ color: data.tipo === 'despesa' ? 'crimson' : 'green', fontWeight: 'bold', fontSize: 22}}>

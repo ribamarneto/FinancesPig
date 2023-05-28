@@ -9,7 +9,7 @@ import auth from '@react-native-firebase/auth';
 LogBox.ignoreLogs(['Possible Unhandled Promise Rejection']);
 
 const CustomIcon = () => (
-  <View>
+  <View style={{paddingLeft: '15%'}}>
     <Image source={require('../../../assets/images/logo-black.png')} style={{ width: 60, height: 60 }} />
   </View>
 );
