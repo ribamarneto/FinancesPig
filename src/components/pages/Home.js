@@ -42,7 +42,7 @@ export default function Home(props) {
 
 
     
-    //Atualiza os valores de Saldo, Receita e Despesa
+    // Atualiza os valores de Saldo, Receita e Despesa
     const atualizar = () => {
 
         console.log("Receita: " + receita)
@@ -51,7 +51,7 @@ export default function Home(props) {
 
         const saldo = saldoExibir + receita - despesa;
 
-        //Chamas as funções que salvam os valores de receita e despesa, e em seguida zera os valores na tela
+        // Chamas as funções que salvam os valores de receita e despesa, e em seguida zera os valores na tela
         if (parseFloat(receita) > 0)
             atualizarReceita(parseFloat(receita));
 
@@ -61,10 +61,10 @@ export default function Home(props) {
         setReceita(0);
         setDespesa(0);
 
-        //Pega o ID do usuário logado
+        // Pega o ID do usuário logado
         const userUid = auth().currentUser.uid;
 
-        //Atualiza o valor do saldo no firebase
+        // Atualiza o valor do saldo no firebase
         database()
             .ref(`/saldo/${userUid}`)
             .update({
@@ -72,7 +72,7 @@ export default function Home(props) {
             })
             .then(() => props.click());
 
-        //Retorna o valor do saldo atualizado
+        // Retorna o valor do saldo atualizado
         database()
             .ref(`/saldo/${userUid}`)
             .once('value')
@@ -85,18 +85,16 @@ export default function Home(props) {
     };
 
     
-    //Calcula o saldo a a ser exibido na tela à partir da soma dos valores do histórico
+    // Calcula o saldo a a ser exibido na tela à partir da soma dos valores do histórico
     const exibirSaldo = async () => {
         const saldo = await FireBase.calcularSaldo();
         setSaldoExibir(saldo);
         console.log('Exibir Saldo:', saldo);
     };
 
-    React.useEffect(() => {
-        exibirSaldo();
-    });
 
-    // exibirSaldo();
+    // Chama a função que exibe o saldo atualizado quando o componente é renderizado
+    exibirSaldo();
 
     return (
         <SafeAreaView onLayout={exibirSaldo} style={{ alignItems: 'center', paddingVertical: '25%' }}>
@@ -117,7 +115,7 @@ export default function Home(props) {
             </SafeAreaView>
             <Text style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 22, marginTop: 100 }}>Despesa</Text>
             <SafeAreaView style={{ display: 'flex', flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
-            {/* Input da despess */}
+            {/* Input da despesa */}
                 <CurrencyInput
                     style={styles.input}
                     value={despesa}

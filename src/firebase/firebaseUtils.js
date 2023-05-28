@@ -1,6 +1,5 @@
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
-import * as React from 'react'
 
 const user = auth().currentUser;
 
@@ -8,18 +7,6 @@ let userUid = "";
 
 if (user) 
   userUid = user.uid;
-
-// const userUid = auth().currentUser.uid;
-
-export const createSaldoIfNotExist = async () => {
-  const saldoRef = database().ref('saldo');
-
-  const snapshotSaldo = await saldoRef.once('value');
-
-  if (!snapshotSaldo.exists()) {
-    await saldoRef.set(0);
-  }
-};
 
 export const getHistorico = async () => {
   try {
