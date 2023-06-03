@@ -20,7 +20,7 @@ export default function HeaderSignedIn() {
   const [overlayVisible, setOverlayVisible] = React.useState(false);
 
   const user = firebase.auth().currentUser;
-  const username = user.displayName;
+  const username = user.displayName ? user.displayName : user.email;
   const firstName = username.split(" ")[0];
 
   const openMenu = () => {

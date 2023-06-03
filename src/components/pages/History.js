@@ -17,7 +17,6 @@ export default function History(props) {
       .once('value')
       .then(snapshot => {
         const historico = Object.values(snapshot.val())
-        console.log('User data: ', snapshot.val());
         setListaHistorico(historico)
       });
   };
@@ -38,7 +37,6 @@ export default function History(props) {
               .sort((a, b) => b.data_cadastro.localeCompare(a.data_cadastro))
               .map(data =>
                 <ListItem key={data.data_cadastro} style={{width:'110%', marginLeft:-16}} >
-                  {console.log(data)}
                   <ListItem.Content style={{borderBottomWidth:0.5, paddingLeft:20}}>
                     {/* Na linha abaixo mudamos a cor do texto de acordo com o tipo do valor */}
                     <ListItem.Title style={{ color: data.tipo === 'despesa' ? 'crimson' : 'green', fontWeight: 'bold', fontSize: 22}}>

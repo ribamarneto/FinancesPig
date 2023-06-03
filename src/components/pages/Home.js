@@ -5,12 +5,32 @@ import database from '@react-native-firebase/database';
 import { Button } from '@rneui/base';
 import CurrencyInput from 'react-native-currency-input';
 import auth from '@react-native-firebase/auth';
+import * as utils from '../../utils/utils';
 
-export default function Home(props) {
+function Home(props) {
 
     const [receita, setReceita] = React.useState('');
     const [despesa, setDespesa] = React.useState('');
     const [saldoExibir, setSaldoExibir] = React.useState(0);
+    const [listaHistorico, setListaHistorico] = React.useState([]);
+    const userUid = auth().currentUser.uid;
+
+    // Recupera os doados do histório no firebase, filtrando pelo código usuário
+    // e armazena na constante listaHistorico
+    const fetchHistory = () => {
+        database()
+            .ref(`/historico/${userUid}`)
+            .once('value')
+            .then(snapshot => {
+                const historico = Object.values(snapshot.val());
+                setListaHistorico(historico);
+            });
+    };
+
+    //Chama a função fetchData quando o componente é montado 
+    React.useEffect(() => {
+        fetchHistory();
+    }, []);
 
     //Recebe o valor cadastrado para a Receita e insere um novo registro no banco, vinculado ao usuário logado
     const atualizarReceita = (valor) => {
@@ -40,8 +60,6 @@ export default function Home(props) {
             .then(() => props.click());
     };
 
-
-    
     // Atualiza os valores de Saldo, Receita e Despesa
     const atualizar = () => {
 
@@ -81,17 +99,16 @@ export default function Home(props) {
                 const valor = Object.values(snapshot.val());
             });
 
+        fetchHistory();
         exibirSaldo();
     };
 
-    
     // Calcula o saldo a a ser exibido na tela à partir da soma dos valores do histórico
     const exibirSaldo = async () => {
-        const saldo = await FireBase.calcularSaldo();
+        const saldo = await utils.sumSaldo(listaHistorico);
+        console.log("SALDO HISTORICO: " + saldo);
         setSaldoExibir(saldo);
-        console.log('Exibir Saldo:', saldo);
     };
-
 
     // Chama a função que exibe o saldo atualizado quando o componente é renderizado
     exibirSaldo();
@@ -100,7 +117,7 @@ export default function Home(props) {
         <SafeAreaView onLayout={exibirSaldo} style={{ alignItems: 'center', paddingVertical: '25%' }}>
             <Text style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 22 }}>Receita</Text>
             <SafeAreaView style={{ display: 'flex', flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
-            {/* Input da receita */}
+                {/* Input da receita */}
                 <CurrencyInput //Componente de input de valores monetários (react-native-currency-input)
                     style={styles.input}
                     value={receita}
@@ -115,7 +132,7 @@ export default function Home(props) {
             </SafeAreaView>
             <Text style={{ textAlign: 'left', fontWeight: 'bold', fontSize: 22, marginTop: 100 }}>Despesa</Text>
             <SafeAreaView style={{ display: 'flex', flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
-            {/* Input da despesa */}
+                {/* Input da despesa */}
                 <CurrencyInput
                     style={styles.input}
                     value={despesa}
@@ -159,3 +176,5 @@ const styles = StyleSheet.create({
         fontSize: 22
     },
 });
+
+export default Home;
