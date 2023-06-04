@@ -172,6 +172,7 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         borderRadius: 5,
         padding: 5,
+        minWidth: 80,
         flex: 1,
     },
     progresso: {
@@ -182,12 +183,10 @@ const styles = StyleSheet.create({
     barra: {
         height: 10,
         borderRadius: 5,
-        backgroundColor: 'blue',
+        backgroundColor: 'lightgreen',
     },
     porcentagem: {
-        fontSize:
-
-            12,
+        fontSize:12,
         marginTop: 5,
     },
     novaMetaContainer: {
@@ -199,6 +198,7 @@ const styles = StyleSheet.create({
     },
     novaMetaTitulo: {
         fontWeight: 'bold',
+        fontSize: 16,
         marginBottom: 5,
     },
     novaMetaInput: {
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     novaMetaBotao: {
-        backgroundColor: 'blue',
+        backgroundColor: 'green',
         borderRadius: 5,
         padding: 10,
         alignItems: 'center',
