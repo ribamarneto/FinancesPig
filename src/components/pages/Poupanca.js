@@ -1,4 +1,5 @@
-import { View, Text, SafeAreaView, ScrollView } from "react-native";
+import { View, SafeAreaView, ScrollView, Text } from "react-native";
+import { Icon } from "@rneui/base";
 import PageTitle from "../Title"
 
 export default function Poupanca() {
@@ -6,10 +7,11 @@ export default function Poupanca() {
         <SafeAreaView>
             <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
                 <PageTitle value={'Poupança'} />
-                <View style={{ marginTop: 16, borderColor: '#cdcdcd', paddingLeft: '10%' }}>
+                <View style={{ paddingVertical: '25%', borderColor: '#cdcdcd', alignItems:'center' }}>
+                   <Icon name="construction" size={100} color={'grey'} />
+                   <Text style={{fontSize: 22}}>Em construção!</Text>
                 </View>
             </ScrollView>
         </SafeAreaView>
     );
-
 }
