@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
+import PageTitle from "../Title"
 
 const MetaItem = ({ meta, onUpdateMetaNome, onUpdateMetaValorArmazenado }) => {
     const valorFaltando = meta.valorTotal - meta.valorArmazenado;
@@ -93,7 +94,7 @@ const Metas = () => {
     };
 
     return (
-        <View style={styles.container}>
+            <View style={styles.container}>
             <Text style={styles.titulo}>Minhas metas</Text>
             <FlatList
                 data={metas}
@@ -146,6 +147,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 20,
+        textAlign: 'center'
     },
     item: {
         flexDirection: 'row',
